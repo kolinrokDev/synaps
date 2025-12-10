@@ -1,0 +1,23 @@
+<?php
+/**
+* Implements hook_theme().
+*/
+function projects_module_theme($existing, $type, $theme, $path) {
+return [
+'projects_module_latest_projects' => [
+'variables' => ['projects' => NULL],
+'template' => 'projects-module-latest-projects',
+],
+'projects_module_project_item' => [
+'variables' => [
+'title' => NULL,
+'description' => NULL,
+'image_url' => NULL,
+'image_alt' => NULL,
+'end_date' => NULL,
+'url' => NULL,
+],
+'template' => 'projects-module-project-item',
+],
+];
+}

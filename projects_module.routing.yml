@@ -1,0 +1,8 @@
+projects_module.api_projects:
+  path: '/api/projects'
+  defaults:
+    _controller: '\Drupal\projects_module\Controller\ProjectsController::getProjects'
+    _title: 'Projects API'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'

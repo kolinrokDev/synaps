@@ -1,0 +1,4 @@
+projects_module_styles:
+  css:
+    theme:
+      css/projects_module.styles.css: {}

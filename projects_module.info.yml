@@ -1,0 +1,5 @@
+name: 'Projects module'
+type: module
+description: 'Добавляет тип контента Проект, блок последних проектов. JSON - /api/projects.'
+core_version_requirement: ^10
+package: Custom

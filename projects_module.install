@@ -1,0 +1,82 @@
+<?php
+
+
+use Drupal\node\Entity\NodeType;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\user\Entity\Role;
+
+
+/**
+* Implements hook_install().
+*/
+function projects_module_install() {
+// Создаём тип контента 'project'.
+if (!NodeType::load('project')) {
+$type = NodeType::create([
+'type' => 'project',
+'name' => 'Проект',
+'description' => 'Проекты — кастомный тип контента.',
+]);
+$type->save();
+}
+
+
+// Создаём storage для поля изображения (field_image).
+if (!FieldStorageConfig::loadByName('node', 'field_image')) {
+FieldStorageConfig::create([
+'field_name' => 'field_image',
+'entity_type' => 'node',
+'type' => 'image',
+'settings' => [],
+'cardinality' => 1,
+])->save();
+}
+
+
+// Создаём поле изображения для типа project.
+if (!FieldConfig::loadByName('node', 'project', 'field_image')) {
+FieldConfig::create([
+'field_name' => 'field_image',
+'entity_type' => 'node',
+'bundle' => 'project',
+'label' => 'Изображение',
+'required' => FALSE,
+'settings' => [
+'file_extensions' => 'png jpg jpeg webp',
+'alt_field' => TRUE,
+'title_field' => FALSE,
+],
+])->save();
+}
+
+
+// Дата окончания — поле datetime (date only).
+if (!FieldStorageConfig::loadByName('node', 'field_end_date')) {
+FieldStorageConfig::create([
+'field_name' => 'field_end_date',
+'entity_type' => 'node',
+'type' => 'datetime',
+'settings' => [
+'datetime_type' => 'date',
+],
+'cardinality' => 1,
+])->save();
+}
+
+
+if (!FieldConfig::loadByName('node', 'project', 'field_end_date')) {
+FieldConfig::create([
+'field_name' => 'field_end_date',
+'entity_type' => 'node',
+'bundle' => 'project',
+'label' => 'Дата окончания',
+'required' => FALSE,
+'settings' => [],
+])->save();
+}
+
+
+// Настройка отображения: оставим администратору менять в UI; опционально можно
+// задать display settings через entity_view_display, но это не обязательно.
+}
